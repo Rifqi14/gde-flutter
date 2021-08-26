@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: 'Whatsapp',
+        title: 'GDE Inventory',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           accentColor: Styles.primaryColor,
