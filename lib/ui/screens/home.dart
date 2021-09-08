@@ -14,6 +14,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   static ScrollController _hideButtonController;
   int _selectedIndex = 0;
+  String _title = 'Default Title';
+  IconData _icon = Icons.notifications_outlined;
+  String _conditionalAction = 'None';
   List<Widget> _widgetOptions = <Widget>[
     SafeArea(child: NewScreen()),
     SafeArea(child: HistoryActivity()),
@@ -65,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             },
             icon: Icon(
-              Icons.notifications_outlined,
+              _icon,
               color: Color(0XFF868686),
               size: 24.0,
             ),
@@ -74,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 0,
           centerTitle: true,
           title: Text(
-            "Dashboard",
+            _title,
             style: TextStyle(
               fontSize: 18.0,
               fontFamily: "Mulish",
@@ -114,6 +117,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   onTap: () {
                     _selectedIndex = 0;
+                    _title='Dashboard';
+                    _icon= Icons.ac_unit;
                     setState(() {});
                   },
                   isActive: _selectedIndex == 0,
@@ -127,6 +132,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: AssetImage("assets/images/icon/clock.png"),
                   onTap: () {
                     _selectedIndex = 1;
+                    _title='History Activity';
+                    _icon= Icons.ac_unit;
                     setState(() {});
                   },
                   isActive: _selectedIndex == 1,
