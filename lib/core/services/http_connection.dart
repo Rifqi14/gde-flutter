@@ -14,7 +14,7 @@ abstract class HttpConnection {
       receiveTimeout: 3000,
       connectTimeout: 19000,
       sendTimeout: 10000,
-      baseUrl: baseURL + 'api',
+      baseUrl: baseURL + 'v1',
       contentType: "application/json",
 
       //! this is important so error code below 500 will not get thrown
@@ -54,7 +54,7 @@ abstract class HttpConnection {
     bool bypassError = false,
   }) async {
     if (needsToken) {
-      headers['Authorization'] = "${storageUtils.token}";
+      headers['Authorization'] = "Bearer ${storageUtils.token}";
     }
     try {
       doi.Response resp = await dio.post(url, data: data, queryParameters: params, options: Options(headers: headers));
@@ -77,7 +77,7 @@ abstract class HttpConnection {
   //if pure == true, it will return data without parse it to ApiResponseModel
   Future get(String url, {Map<String, String> params, bool needsToken = true, bool pure = false}) async {
     if (needsToken) {
-      headers['Authorization'] = "${storageUtils.token}";
+      headers['Authorization'] = "Bearer ${storageUtils.token}";
     }
     try {
       doi.Response resp = await dio.get(url, queryParameters: params, options: Options(headers: headers));

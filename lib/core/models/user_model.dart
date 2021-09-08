@@ -4,21 +4,21 @@ class UserModel {
   int id;
   String name;
   String username;
-  int balance;
+  String email;
 
   UserModel({
     @required this.id,
     @required this.name,
     @required this.username,
-    @required this.balance
+    @required this.email,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['id'] ?? "",
-      name: json['name'] ?? "",
-      username: json['username'] ?? "",
-      balance: json['balance'] ?? ""
+      id: json['data']['id'] ?? 0,
+      name: json['data']['name'] ?? "",
+      username: json['data']['username'] ?? "",
+      email: json['data']['email'] ?? "",
     );
   }
 }

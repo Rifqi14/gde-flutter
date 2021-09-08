@@ -18,28 +18,32 @@ class UserController extends GetxController {
     if (StorageUtils.to.token != null) {
       await getUser();
       if (user?.name != null) {
-         Get.offAll(() => HomeScreen());
+        Get.offAll(() => HomeScreen());
+      } else {
+        nosession();
       }
-    }else{
+    } else {
       nosession();
     }
   }
+
   Future<void> nosession() async {
     Future.delayed(
       Duration(milliseconds: 1500),
       () => Get.offAll(() => LoginScreen()),
     );
   }
+
   Future getUser() async {
     user = await _userService.me();
   }
 
   Future login({
-    @required String phone,
+    @required String email,
     @required String password,
   }) async {
     DialogUtils.showLoading('Login...');
-    dio.Response res = await _userService.login(phone, password);
+    dio.Response res = await _userService.login(email, password);
     //* Throw errors
     if (res.statusCode >= 400) {
       DialogUtils.showInfo(res.data['errors'].toString(), closePreDialog: true);
@@ -58,8 +62,11 @@ class UserController extends GetxController {
       return;
     }
   }
+
   void logout() async {
-    DialogUtils.showChoose('Are you sure you want to exit this application?', 'Yes', onClick: () async {
+    DialogUtils.showChoose(
+        'Are you sure you want to exit this application?', 'Yes',
+        onClick: () async {
       // stop cron
       await StorageUtils.to.storage.erase();
       Get.offAll(() => LoginScreen());
